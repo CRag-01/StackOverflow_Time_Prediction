@@ -31,6 +31,7 @@ def punctutation_stop(text):
     return filtered
 
 words_filtered = punctutation_stop(words)
+
 words_filtered1 = pd.unique(words_filtered).tolist()
 words_filtered_df = pd.DataFrame(words_filtered1)
 words_filtered_df.to_csv("tags.csv",index = False)
@@ -88,3 +89,8 @@ df['debugging'] = df['tags'].apply(lambda x: 1 if 'debugging' in x.lower() else 
 df['data-structures'] = df['tags'].apply(lambda x: 1 if 'data-structures' in x.lower() else 0)
 
 df.to_csv("Top_Tags_Binary.csv")
+
+from collections import Counter
+data = Counter(words_filtered)
+tag_count = pd.DataFrame.from_dict(data,orient='index').reset_index()
+tag_count.to_csv('tag_count.csv')
